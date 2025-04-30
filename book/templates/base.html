@@ -17,13 +17,13 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              {% comment %} <a class="nav-link active" aria-current="page" href="/">Home</a> {% endcomment %}
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url "bookstore" %}">Store Book</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Show Book</a>
+              <a class="nav-link" href={% url "showbooks" %}>Show Book</a>
             </li>
           </ul>
         </div>
