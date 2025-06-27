@@ -1,11 +1,28 @@
 from django.shortcuts import render, redirect
 from book.forms import BookStoreForm
 from book.models import BookStoreModel
+from django.views.generic import TemplateView
 # Create your views here.
 
+#functin based view
+# def home(request):
+#     return render(request, 'home.html')
 
-def home(request):
-    return render(request, 'store_book.html')
+# class based view
+class MyTemplateView(TemplateView):
+    template_name = 'home.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        roll = self.kwargs.get('roll', None)
+        context = {   
+            'name': 'Rahim',
+            'age': 21,
+            'roll': roll
+        }
+        context.update(kwargs)
+        print(context)
+        return context
 
 def store_book(request):
     if request.method == "POST":
@@ -13,7 +30,6 @@ def store_book(request):
         if book.is_valid():
             book.save(commit=True)
             return redirect("showbooks")
-            
     else:
         book = BookStoreForm()
     return render(request, 'store_book.html', {'form': book})

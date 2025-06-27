@@ -9,7 +9,7 @@ class BookStoreModel(models.Model):
         ('Thriller', 'Thriller'),
         ('Sci-fi', 'Sci-fi'),
         ('Humor', 'Humor'),
-        ('Horror', 'Horror')
+        ('Horror', 'Horror')    
     )
     id = models.IntegerField(primary_key=True)
     book_name = models.CharField(max_length=30)
