@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from book.forms import BookStoreForm
 from book.models import BookStoreModel
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 # Create your views here.
 
 #functin based view
@@ -34,9 +34,33 @@ def store_book(request):
         book = BookStoreForm()
     return render(request, 'store_book.html', {'form': book})
 
-def show_books(request):
-    book = BookStoreModel.objects.all()
-    return render(request, 'show_book.html', {'data': book})
+# def show_books(request):
+#     book = BookStoreModel.objects.all()
+#     return render(request, 'show_book.html', {'data': book})
+
+#class based view
+class BookListView(ListView):
+    model = BookStoreModel
+    template_name = 'show_book.html'
+    context_object_name = 'data'
+    
+    # def get_queryset(self):
+    #     return BookStoreModel.objects.filter(author='Rahim')
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context = {'data': BookStoreModel.objects.all().order_by('author')}
+        return context
+    
+    # def get_context_data(self, **kwargs): #give same name to all category
+    #     context = super().get_context_data(**kwargs)
+    #     books = BookStoreModel.objects.all().order_by('author')
+    #     for book in books:
+    #         book.category = "Mango"
+    #     context['data'] = books
+    #     return context
+    
+    ordering = ['category']
 
 def delete(request, id):
     std = BookStoreModel.objects.get(pk=id).delete()
