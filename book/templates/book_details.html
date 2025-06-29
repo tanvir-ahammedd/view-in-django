@@ -20,7 +20,7 @@
                 <td>{{item.author}}</td>
                 <td>{{item.first_pub}}</td>
                 <td>{{item.last_pub}}</td>
-                <td> <a class="btn btn-warning btn-sm" href="{% url 'editbook' item.id %}">Edit</a> <a class="btn btn-danger btn-sm" href="{% url 'deletebooks' item.id %}">Delete</a>
+                <td> <a class="btn btn-warning btn-sm" href="{% url 'editbook' item.pk %}">Edit</a> <a class="btn btn-danger btn-sm" href="{% url 'deletebooks' item.pk %}">Delete</a>
             </tr>
         </tbody>
       </table>

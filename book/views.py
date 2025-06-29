@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from book.forms import BookStoreForm
 from book.models import BookStoreModel
-from django.views.generic import TemplateView, ListView, DetailView
+from django.views.generic import TemplateView, ListView, DetailView, DeleteView, UpdateView
 from django.views.generic.edit import FormView, CreateView
 from django.urls import reverse_lazy
 from django.http import HttpResponse
@@ -82,9 +82,20 @@ class BookListView(ListView):
     
     ordering = ['category']
 
-def delete(request, id):
-    std = BookStoreModel.objects.get(pk=id).delete()
-    return redirect("showbooks")
+class BookUpdateView(UpdateView):
+    model = BookStoreModel
+    template_name = 'store_book.html'
+    form_class = BookStoreForm
+    success_url = reverse_lazy("showbooks")
+    
+class BookDeleteView(DeleteView):
+    model = BookStoreModel
+    template_name = 'delete_confirmation.html'
+    success_url = reverse_lazy("showbooks")
+    
+# def delete(request, id):
+#     std = BookStoreModel.objects.get(pk=id).delete()
+#     return redirect("showbooks")
  #class Based View
 class BookDetailsView(DetailView):
     model = BookStoreModel
